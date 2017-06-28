@@ -526,8 +526,8 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <NavigationProperty Name="asignatura" Relationship="Self.fk_horarios_asignatura1" FromRole="horarios" ToRole="asignatura" />
           <NavigationProperty Name="curso" Relationship="Self.fk_horarios_curso1" FromRole="horarios" ToRole="curso" />
           <NavigationProperty Name="detalle_horario" Relationship="Self.fk_detalle_horario_horarios1" FromRole="horarios" ToRole="detalle_horario" />
-          <NavigationProperty Name="profesor" Relationship="Self.fk_detalle_horarios_profesor1" FromRole="horarios" ToRole="profesor" />
           <NavigationProperty Name="notas" Relationship="Self.fk_notas_horarios1" FromRole="horarios" ToRole="notas" />
+          <NavigationProperty Name="profesor" Relationship="nautilus_dbModel.fk_detalle_horarios_profesor1" FromRole="horarios" ToRole="profesor" />
         </EntityType>
         <EntityType Name="institucion">
           <Key>
@@ -553,23 +553,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <NavigationProperty Name="horarios" Relationship="Self.fk_notas_horarios1" FromRole="notas" ToRole="horarios" />
           <NavigationProperty Name="estudiante" Relationship="nautilus_dbModel.fk_notas_estudiante1" FromRole="notas" ToRole="estudiante" />
         </EntityType>
-        <EntityType Name="profesor">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="documento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="usuario_id" Type="Int32" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="horarios" Relationship="Self.fk_detalle_horarios_profesor1" FromRole="profesor" ToRole="horarios" />
-          <NavigationProperty Name="usuario" Relationship="Self.fk_profesor_usuario1" FromRole="profesor" ToRole="usuario" />
-          <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="sede">
           <Key>
             <PropertyRef Name="id" />
@@ -591,8 +574,8 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <Property Name="clave" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="rol" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="profesor" Relationship="Self.fk_profesor_usuario1" FromRole="usuario" ToRole="profesor" />
           <NavigationProperty Name="estudiante" Relationship="nautilus_dbModel.fk_estudiante_usuario1" FromRole="usuario" ToRole="estudiante" />
+          <NavigationProperty Name="profesor" Relationship="nautilus_dbModel.fk_profesor_usuario1" FromRole="usuario" ToRole="profesor" />
         </EntityType>
         <Association Name="fk_asignatura_area1">
           <End Role="area" Type="Self.area" Multiplicity="1" />
@@ -702,18 +685,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_detalle_horarios_profesor1">
-          <End Role="profesor" Type="Self.profesor" Multiplicity="1" />
-          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="profesor">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="horarios">
-              <PropertyRef Name="profesor_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_notas_horarios1">
           <End Role="horarios" Type="Self.horarios" Multiplicity="1" />
           <End Role="notas" Type="Self.notas" Multiplicity="*" />
@@ -738,18 +709,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_profesor_usuario1">
-          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
-          <End Role="profesor" Type="Self.profesor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuario">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="profesor">
-              <PropertyRef Name="usuario_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="nautilus_entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="area" EntityType="Self.area" />
           <EntitySet Name="asignatura" EntityType="Self.asignatura" />
@@ -761,7 +720,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <EntitySet Name="horarios" EntityType="Self.horarios" />
           <EntitySet Name="institucion" EntityType="Self.institucion" />
           <EntitySet Name="notas" EntityType="Self.notas" />
-          <EntitySet Name="profesor" EntityType="Self.profesor" />
           <EntitySet Name="sede" EntityType="Self.sede" />
           <EntitySet Name="usuario" EntityType="Self.usuario" />
           <AssociationSet Name="fk_asignatura_area1" Association="Self.fk_asignatura_area1">
@@ -800,10 +758,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
             <End Role="horarios" EntitySet="horarios" />
             <End Role="detalle_horario" EntitySet="detalle_horario" />
           </AssociationSet>
-          <AssociationSet Name="fk_detalle_horarios_profesor1" Association="Self.fk_detalle_horarios_profesor1">
-            <End Role="profesor" EntitySet="profesor" />
-            <End Role="horarios" EntitySet="horarios" />
-          </AssociationSet>
           <AssociationSet Name="fk_notas_horarios1" Association="Self.fk_notas_horarios1">
             <End Role="horarios" EntitySet="horarios" />
             <End Role="notas" EntitySet="notas" />
@@ -811,10 +765,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <AssociationSet Name="fk_sedes_institucion" Association="Self.fk_sedes_institucion">
             <End Role="institucion" EntitySet="institucion" />
             <End Role="sede" EntitySet="sede" />
-          </AssociationSet>
-          <AssociationSet Name="fk_profesor_usuario1" Association="Self.fk_profesor_usuario1">
-            <End Role="usuario" EntitySet="usuario" />
-            <End Role="profesor" EntitySet="profesor" />
           </AssociationSet>
           <EntitySet Name="area_with_count_asignaturas" EntityType="nautilus_dbModel.area_with_count_asignaturas" />
           <EntitySet Name="estudiante" EntityType="nautilus_dbModel.estudiante" />
@@ -825,6 +775,15 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
           <AssociationSet Name="fk_notas_estudiante1" Association="nautilus_dbModel.fk_notas_estudiante1">
             <End Role="estudiante" EntitySet="estudiante" />
             <End Role="notas" EntitySet="notas" />
+          </AssociationSet>
+          <EntitySet Name="profesor" EntityType="nautilus_dbModel.profesor" />
+          <AssociationSet Name="fk_detalle_horarios_profesor1" Association="nautilus_dbModel.fk_detalle_horarios_profesor1">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_profesor_usuario1" Association="nautilus_dbModel.fk_profesor_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="profesor" EntitySet="profesor" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="area_with_count_asignaturas">
@@ -878,6 +837,47 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
             </Principal>
             <Dependent Role="notas">
               <PropertyRef Name="estudiante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="documento" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_id" Type="Int32" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="horarios" Relationship="nautilus_dbModel.fk_detalle_horarios_profesor1" FromRole="profesor" ToRole="horarios" />
+          <NavigationProperty Name="usuario" Relationship="nautilus_dbModel.fk_profesor_usuario1" FromRole="profesor" ToRole="usuario" />
+        </EntityType>
+        <Association Name="fk_detalle_horarios_profesor1">
+          <End Type="nautilus_dbModel.profesor" Role="profesor" Multiplicity="1" />
+          <End Type="nautilus_dbModel.horarios" Role="horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="profesor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_profesor_usuario1">
+          <End Type="nautilus_dbModel.usuario" Role="usuario" Multiplicity="0..1" />
+          <End Type="nautilus_dbModel.profesor" Role="profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="profesor">
+              <PropertyRef Name="usuario_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -992,22 +992,6 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="profesor">
-            <EntityTypeMapping TypeName="nautilus_dbModel.profesor">
-              <MappingFragment StoreEntitySet="profesor">
-                <ScalarProperty Name="sexo" ColumnName="sexo" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="documento" ColumnName="documento" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sede">
             <EntityTypeMapping TypeName="nautilus_dbModel.sede">
               <MappingFragment StoreEntitySet="sede">
@@ -1051,6 +1035,22 @@ FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQue
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesor">
+            <EntityTypeMapping TypeName="nautilus_dbModel.profesor">
+              <MappingFragment StoreEntitySet="profesor">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="sexo" ColumnName="sexo" />
                 <ScalarProperty Name="apellido" ColumnName="apellido" />

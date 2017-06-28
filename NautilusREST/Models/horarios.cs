@@ -30,8 +30,8 @@ namespace NautilusREST.Models
         public virtual curso curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<detalle_horario> detalle_horario { get; set; }
-        public virtual profesor profesor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<notas> notas { get; set; }
+        public virtual profesor profesor { get; set; }
     }
 }

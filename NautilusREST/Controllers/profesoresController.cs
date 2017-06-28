@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using NautilusREST.Models;
 using System.Web.Http.Cors;
 using NautilusREST.Models.DTO;
+using System.Dynamic;
 
 namespace NautilusREST.Controllers
 {
@@ -21,19 +22,19 @@ namespace NautilusREST.Controllers
         private nautilus_entities db = new nautilus_entities();
 
         // GET: api/profesores
-        public List<Profesor> Getprofesor()
-        {
-            var query = db.profesor.ToList().Select(x => { return new Profesor() {
-                id = x.id,
-                documento = x.documento,
-                nombre = x.nombre,
-                email = x.email,
-                direccion  = x.direccion,
-                estado = x.estado,
-                telefono = x.telefono,
-                usuario_id = x.usuario_id
-            }; }).ToList();
-            return query;        
+        public IEnumerable<dynamic> Getprofesor()
+        {            
+            return db.profesor.Select(x => new {                
+                x.id,
+                x.nombre,
+                x.sexo,
+                x.telefono,
+                x.apellido,
+                x.direccion,
+                x.documento,
+                x.email,
+                x.estado                
+            });        
         }
 
         // GET: api/profesores/5

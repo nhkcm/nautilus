@@ -35,10 +35,10 @@ namespace NautilusREST.Models
         public virtual DbSet<horarios> horarios { get; set; }
         public virtual DbSet<institucion> institucion { get; set; }
         public virtual DbSet<notas> notas { get; set; }
-        public virtual DbSet<profesor> profesor { get; set; }
         public virtual DbSet<sede> sede { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<area_with_count_asignaturas> area_with_count_asignaturas { get; set; }
         public virtual DbSet<estudiante> estudiante { get; set; }
+        public virtual DbSet<profesor> profesor { get; set; }
     }
 }

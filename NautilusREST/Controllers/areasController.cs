@@ -20,18 +20,22 @@ namespace NautilusREST.Controllers
         private nautilus_entities db = new nautilus_entities();
 
         // GET: api/areas
-        public IEnumerable<Models.DTO.Area> Getarea()
+        public IEnumerable<dynamic> Getarea()
         {                        
-            var data = db.area_with_count_asignaturas.ToList().Select(x => {
-                return new Models.DTO.Area()
-                {
-                    id = x.id,
-                    fecha_registro = x.fecha_registro,
-                    nombre = x.nombre,
-                    num_asignaturas = x.num_materias
-                };
-            }).ToList();
-            return data;
+            //var data = db.area_with_count_asignaturas.ToList().Select(x => {
+            //    return new Models.DTO.Area()
+            //    {
+            //        id = x.id,
+            //        fecha_registro = x.fecha_registro,
+            //        nombre = x.nombre,
+            //        num_asignaturas = x.num_materias
+            //    };
+            //}).ToList();
+            return db.area.Select(x => new {
+                x.id,
+                x.nombre,
+                x.fecha_registro
+            });
         }
 
         // GET: api/areas/5
@@ -86,6 +90,7 @@ namespace NautilusREST.Controllers
         [ResponseType(typeof(area))]
         public async Task<IHttpActionResult> Postarea(area area)
         {
+            area.fecha_registro = DateTime.Now.AddHours(2);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
