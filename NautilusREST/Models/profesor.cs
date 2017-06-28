@@ -28,6 +28,8 @@ namespace NautilusREST.Models
         public string email { get; set; }
         public Nullable<int> usuario_id { get; set; }
         public int estado { get; set; }
+        public string apellido { get; set; }
+        public string sexo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<horarios> horarios { get; set; }

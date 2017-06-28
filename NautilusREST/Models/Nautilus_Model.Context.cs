@@ -31,7 +31,6 @@ namespace NautilusREST.Models
         public virtual DbSet<aula> aula { get; set; }
         public virtual DbSet<curso> curso { get; set; }
         public virtual DbSet<detalle_horario> detalle_horario { get; set; }
-        public virtual DbSet<estudiante> estudiante { get; set; }
         public virtual DbSet<grado> grado { get; set; }
         public virtual DbSet<horarios> horarios { get; set; }
         public virtual DbSet<institucion> institucion { get; set; }
@@ -40,5 +39,6 @@ namespace NautilusREST.Models
         public virtual DbSet<sede> sede { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<area_with_count_asignaturas> area_with_count_asignaturas { get; set; }
+        public virtual DbSet<estudiante> estudiante { get; set; }
     }
 }

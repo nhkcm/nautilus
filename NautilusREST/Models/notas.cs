@@ -22,7 +22,7 @@ namespace NautilusREST.Models
         public int horarios_id { get; set; }
         public int estudiante_id { get; set; }
     
-        public virtual estudiante estudiante { get; set; }
         public virtual horarios horarios { get; set; }
+        public virtual estudiante estudiante { get; set; }
     }
 }

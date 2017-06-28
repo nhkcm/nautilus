@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="nautilus_dbModel.aula" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
         <EntityTypeShape EntityType="nautilus_dbModel.curso" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="nautilus_dbModel.detalle_horario" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="nautilus_dbModel.estudiante" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="nautilus_dbModel.grado" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nautilus_dbModel.horarios" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="nautilus_dbModel.institucion" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
@@ -28,13 +27,14 @@
         <AssociationConnector Association="nautilus_dbModel.fk_curso_grado1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_horarios_curso1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_detalle_horario_horarios1" ManuallyRouted="false" />
-        <AssociationConnector Association="nautilus_dbModel.fk_estudiante_usuario1" ManuallyRouted="false" />
-        <AssociationConnector Association="nautilus_dbModel.fk_notas_estudiante1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_detalle_horarios_profesor1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_notas_horarios1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_sedes_institucion" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_profesor_usuario1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="nautilus_dbModel.area_with_count_asignaturas" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="nautilus_dbModel.area_with_count_asignaturas" Width="1.5" PointX="7.625" PointY="1.125" />
+        <EntityTypeShape EntityType="nautilus_dbModel.estudiante" Width="1.5" PointX="3" PointY="21.375" />
+        <AssociationConnector Association="nautilus_dbModel.fk_estudiante_usuario1" />
+        <AssociationConnector Association="nautilus_dbModel.fk_notas_estudiante1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

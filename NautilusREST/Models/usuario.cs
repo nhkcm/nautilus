@@ -17,8 +17,8 @@ namespace NautilusREST.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
-            this.estudiante = new HashSet<estudiante>();
             this.profesor = new HashSet<profesor>();
+            this.estudiante = new HashSet<estudiante>();
         }
     
         public int id { get; set; }
@@ -28,8 +28,8 @@ namespace NautilusREST.Models
         public int estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<estudiante> estudiante { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<profesor> profesor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<estudiante> estudiante { get; set; }
     }
 }
