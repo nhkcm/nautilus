@@ -1,0 +1,1068 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="nautilus_dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="65" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="asignatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
+          <Property Name="area_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="asignatura_grado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="asignatura_id" Type="int" Nullable="false" />
+          <Property Name="grado_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aula">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="capacidad" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="sede_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="periodo" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="grado_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalle_horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="0" />
+          <Property Name="hora_fin" Type="time" Precision="0" />
+          <Property Name="dia_semana" Type="int" />
+          <Property Name="aula_id" Type="int" Nullable="false" />
+          <Property Name="horarios_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="documento" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="usuario_id" Type="int" />
+          <Property Name="edad" Type="int" />
+          <Property Name="seguro_social" Type="varchar" MaxLength="128" />
+          <Property Name="acudiente" Type="varchar" MaxLength="128" />
+          <Property Name="telefono_acudiente" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="grado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="horarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="profesor_id" Type="int" Nullable="false" />
+          <Property Name="asignatura_id" Type="int" Nullable="false" />
+          <Property Name="curso_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="institucion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="escudo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="notas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="n1" Type="double" />
+          <Property Name="n2" Type="double" />
+          <Property Name="n3" Type="double" />
+          <Property Name="n4" Type="double" />
+          <Property Name="horarios_id" Type="int" Nullable="false" />
+          <Property Name="estudiante_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="documento" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="usuario_id" Type="int" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sede">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" />
+          <Property Name="institucion_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="rol" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'def.nautilus_db.area_with_count_asignaturas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="area_with_count_asignaturas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="65" Nullable="false" />
+          <Property Name="fecha_registro" Type="date" Nullable="false" />
+          <Property Name="num_materias" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_asignatura_area1">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_asignatura_has_grado_asignatura1">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="asignatura_grado" Type="Self.asignatura_grado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura_grado">
+              <PropertyRef Name="asignatura_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_asignatura_has_grado_grado1">
+          <End Role="grado" Type="Self.grado" Multiplicity="1" />
+          <End Role="asignatura_grado" Type="Self.asignatura_grado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura_grado">
+              <PropertyRef Name="grado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Aulas_sede1">
+          <End Role="sede" Type="Self.sede" Multiplicity="1" />
+          <End Role="aula" Type="Self.aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sede">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aula">
+              <PropertyRef Name="sede_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_curso_grado1">
+          <End Role="grado" Type="Self.grado" Multiplicity="1" />
+          <End Role="curso" Type="Self.curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="curso">
+              <PropertyRef Name="grado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horario_aula1">
+          <End Role="aula" Type="Self.aula" Multiplicity="1" />
+          <End Role="detalle_horario" Type="Self.detalle_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aula">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_horario">
+              <PropertyRef Name="aula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horario_horarios1">
+          <End Role="horarios" Type="Self.horarios" Multiplicity="1" />
+          <End Role="detalle_horario" Type="Self.detalle_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_horario">
+              <PropertyRef Name="horarios_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horarios_profesor1">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="profesor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estudiante_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="estudiante">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_horarios_asignatura1">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="asignatura_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_horarios_curso1">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notas_estudiante1">
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+          <End Role="notas" Type="Self.notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notas">
+              <PropertyRef Name="estudiante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notas_horarios1">
+          <End Role="horarios" Type="Self.horarios" Multiplicity="1" />
+          <End Role="notas" Type="Self.notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notas">
+              <PropertyRef Name="horarios_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_profesor_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="profesor" Type="Self.profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="profesor">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sedes_institucion">
+          <End Role="institucion" Type="Self.institucion" Multiplicity="1" />
+          <End Role="sede" Type="Self.sede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="institucion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sede">
+              <PropertyRef Name="institucion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="nautilus_dbModelStoreContainer">
+          <EntitySet Name="area" EntityType="Self.area" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="asignatura" EntityType="Self.asignatura" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="asignatura_grado" EntityType="Self.asignatura_grado" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="aula" EntityType="Self.aula" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="curso" EntityType="Self.curso" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="detalle_horario" EntityType="Self.detalle_horario" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="grado" EntityType="Self.grado" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="horarios" EntityType="Self.horarios" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="institucion" EntityType="Self.institucion" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="notas" EntityType="Self.notas" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="profesor" EntityType="Self.profesor" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="sede" EntityType="Self.sede" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="nautilus_db" store:Type="Tables" />
+          <EntitySet Name="area_with_count_asignaturas" EntityType="Self.area_with_count_asignaturas" store:Type="Views" store:Schema="nautilus_db">
+            <DefiningQuery>SELECT
+`area_with_count_asignaturas`.`id`, 
+`area_with_count_asignaturas`.`nombre`, 
+`area_with_count_asignaturas`.`fecha_registro`, 
+`area_with_count_asignaturas`.`num_materias`
+FROM `area_with_count_asignaturas` AS `area_with_count_asignaturas`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_asignatura_area1" Association="Self.fk_asignatura_area1">
+            <End Role="area" EntitySet="area" />
+            <End Role="asignatura" EntitySet="asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_asignatura_has_grado_asignatura1" Association="Self.fk_asignatura_has_grado_asignatura1">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="asignatura_grado" EntitySet="asignatura_grado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_asignatura_has_grado_grado1" Association="Self.fk_asignatura_has_grado_grado1">
+            <End Role="grado" EntitySet="grado" />
+            <End Role="asignatura_grado" EntitySet="asignatura_grado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Aulas_sede1" Association="Self.fk_Aulas_sede1">
+            <End Role="sede" EntitySet="sede" />
+            <End Role="aula" EntitySet="aula" />
+          </AssociationSet>
+          <AssociationSet Name="fk_curso_grado1" Association="Self.fk_curso_grado1">
+            <End Role="grado" EntitySet="grado" />
+            <End Role="curso" EntitySet="curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horario_aula1" Association="Self.fk_detalle_horario_aula1">
+            <End Role="aula" EntitySet="aula" />
+            <End Role="detalle_horario" EntitySet="detalle_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horario_horarios1" Association="Self.fk_detalle_horario_horarios1">
+            <End Role="horarios" EntitySet="horarios" />
+            <End Role="detalle_horario" EntitySet="detalle_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horarios_profesor1" Association="Self.fk_detalle_horarios_profesor1">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estudiante_usuario1" Association="Self.fk_estudiante_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="estudiante" EntitySet="estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="fk_horarios_asignatura1" Association="Self.fk_horarios_asignatura1">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_horarios_curso1" Association="Self.fk_horarios_curso1">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notas_estudiante1" Association="Self.fk_notas_estudiante1">
+            <End Role="estudiante" EntitySet="estudiante" />
+            <End Role="notas" EntitySet="notas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notas_horarios1" Association="Self.fk_notas_horarios1">
+            <End Role="horarios" EntitySet="horarios" />
+            <End Role="notas" EntitySet="notas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_profesor_usuario1" Association="Self.fk_profesor_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="profesor" EntitySet="profesor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sedes_institucion" Association="Self.fk_sedes_institucion">
+            <End Role="institucion" EntitySet="institucion" />
+            <End Role="sede" EntitySet="sede" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="nautilus_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="asignatura" Relationship="Self.fk_asignatura_area1" FromRole="area" ToRole="asignatura" />
+        </EntityType>
+        <EntityType Name="asignatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+          <Property Name="area_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="area" Relationship="Self.fk_asignatura_area1" FromRole="asignatura" ToRole="area" />
+          <NavigationProperty Name="asignatura_grado" Relationship="Self.fk_asignatura_has_grado_asignatura1" FromRole="asignatura" ToRole="asignatura_grado" />
+          <NavigationProperty Name="horarios" Relationship="Self.fk_horarios_asignatura1" FromRole="asignatura" ToRole="horarios" />
+        </EntityType>
+        <EntityType Name="asignatura_grado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="asignatura_id" Type="Int32" Nullable="false" />
+          <Property Name="grado_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="asignatura" Relationship="Self.fk_asignatura_has_grado_asignatura1" FromRole="asignatura_grado" ToRole="asignatura" />
+          <NavigationProperty Name="grado" Relationship="Self.fk_asignatura_has_grado_grado1" FromRole="asignatura_grado" ToRole="grado" />
+        </EntityType>
+        <EntityType Name="aula">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacidad" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="sede_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sede" Relationship="Self.fk_Aulas_sede1" FromRole="aula" ToRole="sede" />
+          <NavigationProperty Name="detalle_horario" Relationship="Self.fk_detalle_horario_aula1" FromRole="aula" ToRole="detalle_horario" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="periodo" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="grado_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="grado" Relationship="Self.fk_curso_grado1" FromRole="curso" ToRole="grado" />
+          <NavigationProperty Name="horarios" Relationship="Self.fk_horarios_curso1" FromRole="curso" ToRole="horarios" />
+        </EntityType>
+        <EntityType Name="detalle_horario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hora_inicio" Type="Time" />
+          <Property Name="hora_fin" Type="Time" />
+          <Property Name="dia_semana" Type="Int32" />
+          <Property Name="aula_id" Type="Int32" Nullable="false" />
+          <Property Name="horarios_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aula" Relationship="Self.fk_detalle_horario_aula1" FromRole="detalle_horario" ToRole="aula" />
+          <NavigationProperty Name="horarios" Relationship="Self.fk_detalle_horario_horarios1" FromRole="detalle_horario" ToRole="horarios" />
+        </EntityType>
+        <EntityType Name="estudiante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="documento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="usuario_id" Type="Int32" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_estudiante_usuario1" FromRole="estudiante" ToRole="usuario" />
+          <NavigationProperty Name="notas" Relationship="Self.fk_notas_estudiante1" FromRole="estudiante" ToRole="notas" />
+          <Property Name="edad" Type="Int32" />
+          <Property Name="seguro_social" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="acudiente" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="telefono_acudiente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="grado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="asignatura_grado" Relationship="Self.fk_asignatura_has_grado_grado1" FromRole="grado" ToRole="asignatura_grado" />
+          <NavigationProperty Name="curso" Relationship="Self.fk_curso_grado1" FromRole="grado" ToRole="curso" />
+        </EntityType>
+        <EntityType Name="horarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="profesor_id" Type="Int32" Nullable="false" />
+          <Property Name="asignatura_id" Type="Int32" Nullable="false" />
+          <Property Name="curso_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="asignatura" Relationship="Self.fk_horarios_asignatura1" FromRole="horarios" ToRole="asignatura" />
+          <NavigationProperty Name="curso" Relationship="Self.fk_horarios_curso1" FromRole="horarios" ToRole="curso" />
+          <NavigationProperty Name="detalle_horario" Relationship="Self.fk_detalle_horario_horarios1" FromRole="horarios" ToRole="detalle_horario" />
+          <NavigationProperty Name="profesor" Relationship="Self.fk_detalle_horarios_profesor1" FromRole="horarios" ToRole="profesor" />
+          <NavigationProperty Name="notas" Relationship="Self.fk_notas_horarios1" FromRole="horarios" ToRole="notas" />
+        </EntityType>
+        <EntityType Name="institucion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="escudo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sede" Relationship="Self.fk_sedes_institucion" FromRole="institucion" ToRole="sede" />
+        </EntityType>
+        <EntityType Name="notas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="n1" Type="Double" />
+          <Property Name="n2" Type="Double" />
+          <Property Name="n3" Type="Double" />
+          <Property Name="n4" Type="Double" />
+          <Property Name="horarios_id" Type="Int32" Nullable="false" />
+          <Property Name="estudiante_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estudiante" Relationship="Self.fk_notas_estudiante1" FromRole="notas" ToRole="estudiante" />
+          <NavigationProperty Name="horarios" Relationship="Self.fk_notas_horarios1" FromRole="notas" ToRole="horarios" />
+        </EntityType>
+        <EntityType Name="profesor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="documento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_id" Type="Int32" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="horarios" Relationship="Self.fk_detalle_horarios_profesor1" FromRole="profesor" ToRole="horarios" />
+          <NavigationProperty Name="usuario" Relationship="Self.fk_profesor_usuario1" FromRole="profesor" ToRole="usuario" />
+        </EntityType>
+        <EntityType Name="sede">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="institucion_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="aula" Relationship="Self.fk_Aulas_sede1" FromRole="sede" ToRole="aula" />
+          <NavigationProperty Name="institucion" Relationship="Self.fk_sedes_institucion" FromRole="sede" ToRole="institucion" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clave" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rol" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estudiante" Relationship="Self.fk_estudiante_usuario1" FromRole="usuario" ToRole="estudiante" />
+          <NavigationProperty Name="profesor" Relationship="Self.fk_profesor_usuario1" FromRole="usuario" ToRole="profesor" />
+        </EntityType>
+        <Association Name="fk_asignatura_area1">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura">
+              <PropertyRef Name="area_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_asignatura_has_grado_asignatura1">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="asignatura_grado" Type="Self.asignatura_grado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura_grado">
+              <PropertyRef Name="asignatura_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_horarios_asignatura1">
+          <End Role="asignatura" Type="Self.asignatura" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="asignatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="asignatura_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_asignatura_has_grado_grado1">
+          <End Role="grado" Type="Self.grado" Multiplicity="1" />
+          <End Role="asignatura_grado" Type="Self.asignatura_grado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="asignatura_grado">
+              <PropertyRef Name="grado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Aulas_sede1">
+          <End Role="sede" Type="Self.sede" Multiplicity="1" />
+          <End Role="aula" Type="Self.aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sede">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="aula">
+              <PropertyRef Name="sede_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horario_aula1">
+          <End Role="aula" Type="Self.aula" Multiplicity="1" />
+          <End Role="detalle_horario" Type="Self.detalle_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aula">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_horario">
+              <PropertyRef Name="aula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_curso_grado1">
+          <End Role="grado" Type="Self.grado" Multiplicity="1" />
+          <End Role="curso" Type="Self.curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="curso">
+              <PropertyRef Name="grado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_horarios_curso1">
+          <End Role="curso" Type="Self.curso" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="curso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="curso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horario_horarios1">
+          <End Role="horarios" Type="Self.horarios" Multiplicity="1" />
+          <End Role="detalle_horario" Type="Self.detalle_horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="detalle_horario">
+              <PropertyRef Name="horarios_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estudiante_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="estudiante">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notas_estudiante1">
+          <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+          <End Role="notas" Type="Self.notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notas">
+              <PropertyRef Name="estudiante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_detalle_horarios_profesor1">
+          <End Role="profesor" Type="Self.profesor" Multiplicity="1" />
+          <End Role="horarios" Type="Self.horarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="profesor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="horarios">
+              <PropertyRef Name="profesor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_notas_horarios1">
+          <End Role="horarios" Type="Self.horarios" Multiplicity="1" />
+          <End Role="notas" Type="Self.notas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="horarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notas">
+              <PropertyRef Name="horarios_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sedes_institucion">
+          <End Role="institucion" Type="Self.institucion" Multiplicity="1" />
+          <End Role="sede" Type="Self.sede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="institucion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sede">
+              <PropertyRef Name="institucion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_profesor_usuario1">
+          <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+          <End Role="profesor" Type="Self.profesor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="profesor">
+              <PropertyRef Name="usuario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="nautilus_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="area" EntityType="Self.area" />
+          <EntitySet Name="asignatura" EntityType="Self.asignatura" />
+          <EntitySet Name="asignatura_grado" EntityType="Self.asignatura_grado" />
+          <EntitySet Name="aula" EntityType="Self.aula" />
+          <EntitySet Name="curso" EntityType="Self.curso" />
+          <EntitySet Name="detalle_horario" EntityType="Self.detalle_horario" />
+          <EntitySet Name="estudiante" EntityType="Self.estudiante" />
+          <EntitySet Name="grado" EntityType="Self.grado" />
+          <EntitySet Name="horarios" EntityType="Self.horarios" />
+          <EntitySet Name="institucion" EntityType="Self.institucion" />
+          <EntitySet Name="notas" EntityType="Self.notas" />
+          <EntitySet Name="profesor" EntityType="Self.profesor" />
+          <EntitySet Name="sede" EntityType="Self.sede" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <AssociationSet Name="fk_asignatura_area1" Association="Self.fk_asignatura_area1">
+            <End Role="area" EntitySet="area" />
+            <End Role="asignatura" EntitySet="asignatura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_asignatura_has_grado_asignatura1" Association="Self.fk_asignatura_has_grado_asignatura1">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="asignatura_grado" EntitySet="asignatura_grado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_horarios_asignatura1" Association="Self.fk_horarios_asignatura1">
+            <End Role="asignatura" EntitySet="asignatura" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_asignatura_has_grado_grado1" Association="Self.fk_asignatura_has_grado_grado1">
+            <End Role="grado" EntitySet="grado" />
+            <End Role="asignatura_grado" EntitySet="asignatura_grado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Aulas_sede1" Association="Self.fk_Aulas_sede1">
+            <End Role="sede" EntitySet="sede" />
+            <End Role="aula" EntitySet="aula" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horario_aula1" Association="Self.fk_detalle_horario_aula1">
+            <End Role="aula" EntitySet="aula" />
+            <End Role="detalle_horario" EntitySet="detalle_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_curso_grado1" Association="Self.fk_curso_grado1">
+            <End Role="grado" EntitySet="grado" />
+            <End Role="curso" EntitySet="curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_horarios_curso1" Association="Self.fk_horarios_curso1">
+            <End Role="curso" EntitySet="curso" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horario_horarios1" Association="Self.fk_detalle_horario_horarios1">
+            <End Role="horarios" EntitySet="horarios" />
+            <End Role="detalle_horario" EntitySet="detalle_horario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estudiante_usuario1" Association="Self.fk_estudiante_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="estudiante" EntitySet="estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notas_estudiante1" Association="Self.fk_notas_estudiante1">
+            <End Role="estudiante" EntitySet="estudiante" />
+            <End Role="notas" EntitySet="notas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_detalle_horarios_profesor1" Association="Self.fk_detalle_horarios_profesor1">
+            <End Role="profesor" EntitySet="profesor" />
+            <End Role="horarios" EntitySet="horarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_notas_horarios1" Association="Self.fk_notas_horarios1">
+            <End Role="horarios" EntitySet="horarios" />
+            <End Role="notas" EntitySet="notas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sedes_institucion" Association="Self.fk_sedes_institucion">
+            <End Role="institucion" EntitySet="institucion" />
+            <End Role="sede" EntitySet="sede" />
+          </AssociationSet>
+          <AssociationSet Name="fk_profesor_usuario1" Association="Self.fk_profesor_usuario1">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="profesor" EntitySet="profesor" />
+          </AssociationSet>
+          <EntitySet Name="area_with_count_asignaturas" EntityType="nautilus_dbModel.area_with_count_asignaturas" />
+        </EntityContainer>
+        <EntityType Name="area_with_count_asignaturas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Nullable="false" />
+          <Property Name="num_materias" Type="Int64" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="nautilus_dbModelStoreContainer" CdmEntityContainer="nautilus_entities">
+          <EntitySetMapping Name="area">
+            <EntityTypeMapping TypeName="nautilus_dbModel.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="asignatura">
+            <EntityTypeMapping TypeName="nautilus_dbModel.asignatura">
+              <MappingFragment StoreEntitySet="asignatura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="area_id" ColumnName="area_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="asignatura_grado">
+            <EntityTypeMapping TypeName="nautilus_dbModel.asignatura_grado">
+              <MappingFragment StoreEntitySet="asignatura_grado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="asignatura_id" ColumnName="asignatura_id" />
+                <ScalarProperty Name="grado_id" ColumnName="grado_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aula">
+            <EntityTypeMapping TypeName="nautilus_dbModel.aula">
+              <MappingFragment StoreEntitySet="aula">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="sede_id" ColumnName="sede_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="curso">
+            <EntityTypeMapping TypeName="nautilus_dbModel.curso">
+              <MappingFragment StoreEntitySet="curso">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="grado_id" ColumnName="grado_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalle_horario">
+            <EntityTypeMapping TypeName="nautilus_dbModel.detalle_horario">
+              <MappingFragment StoreEntitySet="detalle_horario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_fin" ColumnName="hora_fin" />
+                <ScalarProperty Name="dia_semana" ColumnName="dia_semana" />
+                <ScalarProperty Name="aula_id" ColumnName="aula_id" />
+                <ScalarProperty Name="horarios_id" ColumnName="horarios_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estudiante">
+            <EntityTypeMapping TypeName="nautilus_dbModel.estudiante">
+              <MappingFragment StoreEntitySet="estudiante">
+                <ScalarProperty Name="telefono_acudiente" ColumnName="telefono_acudiente" />
+                <ScalarProperty Name="acudiente" ColumnName="acudiente" />
+                <ScalarProperty Name="seguro_social" ColumnName="seguro_social" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grado">
+            <EntityTypeMapping TypeName="nautilus_dbModel.grado">
+              <MappingFragment StoreEntitySet="grado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="horarios">
+            <EntityTypeMapping TypeName="nautilus_dbModel.horarios">
+              <MappingFragment StoreEntitySet="horarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="profesor_id" ColumnName="profesor_id" />
+                <ScalarProperty Name="asignatura_id" ColumnName="asignatura_id" />
+                <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="institucion">
+            <EntityTypeMapping TypeName="nautilus_dbModel.institucion">
+              <MappingFragment StoreEntitySet="institucion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="escudo" ColumnName="escudo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notas">
+            <EntityTypeMapping TypeName="nautilus_dbModel.notas">
+              <MappingFragment StoreEntitySet="notas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="n1" ColumnName="n1" />
+                <ScalarProperty Name="n2" ColumnName="n2" />
+                <ScalarProperty Name="n3" ColumnName="n3" />
+                <ScalarProperty Name="n4" ColumnName="n4" />
+                <ScalarProperty Name="horarios_id" ColumnName="horarios_id" />
+                <ScalarProperty Name="estudiante_id" ColumnName="estudiante_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="profesor">
+            <EntityTypeMapping TypeName="nautilus_dbModel.profesor">
+              <MappingFragment StoreEntitySet="profesor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sede">
+            <EntityTypeMapping TypeName="nautilus_dbModel.sede">
+              <MappingFragment StoreEntitySet="sede">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="institucion_id" ColumnName="institucion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="nautilus_dbModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="area_with_count_asignaturas">
+            <EntityTypeMapping TypeName="nautilus_dbModel.area_with_count_asignaturas">
+              <MappingFragment StoreEntitySet="area_with_count_asignaturas">
+                <ScalarProperty Name="num_materias" ColumnName="num_materias" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

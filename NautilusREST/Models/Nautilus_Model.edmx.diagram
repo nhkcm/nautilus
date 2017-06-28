@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="35ff5d4b04574348bc4f6ae77c406c00" Name="Diagram_Nautilus">
+        <EntityTypeShape EntityType="nautilus_dbModel.area" Width="1.5" PointX="1.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.asignatura" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.asignatura_grado" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.aula" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.curso" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.detalle_horario" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.estudiante" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.grado" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.horarios" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.institucion" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.notas" Width="1.5" PointX="10.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.profesor" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.sede" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="nautilus_dbModel.usuario" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <AssociationConnector Association="nautilus_dbModel.fk_asignatura_area1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_asignatura_has_grado_asignatura1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_horarios_asignatura1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_asignatura_has_grado_grado1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_Aulas_sede1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_detalle_horario_aula1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_curso_grado1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_horarios_curso1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_detalle_horario_horarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_estudiante_usuario1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_notas_estudiante1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_detalle_horarios_profesor1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_notas_horarios1" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_sedes_institucion" ManuallyRouted="false" />
+        <AssociationConnector Association="nautilus_dbModel.fk_profesor_usuario1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="nautilus_dbModel.area_with_count_asignaturas" Width="1.5" PointX="3.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
