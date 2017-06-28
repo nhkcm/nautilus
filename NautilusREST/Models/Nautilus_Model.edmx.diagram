@@ -31,7 +31,7 @@
         <AssociationConnector Association="nautilus_dbModel.fk_notas_horarios1" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_sedes_institucion" ManuallyRouted="false" />
         <AssociationConnector Association="nautilus_dbModel.fk_profesor_usuario1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="nautilus_dbModel.area_with_count_asignaturas" Width="1.5" PointX="7.625" PointY="1.125" />
+        <EntityTypeShape EntityType="nautilus_dbModel.area_with_count_asignaturas" Width="1.5" PointX="6.375" PointY="1.5" />
         <EntityTypeShape EntityType="nautilus_dbModel.estudiante" Width="1.5" PointX="3" PointY="21.375" />
         <AssociationConnector Association="nautilus_dbModel.fk_estudiante_usuario1" />
         <AssociationConnector Association="nautilus_dbModel.fk_notas_estudiante1" />

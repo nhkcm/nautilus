@@ -136,8 +136,6 @@
     </Compile>
     <Compile Include="Logic\database\GenericRepository.cs" />
     <Compile Include="Logic\database\IGenericRepository.cs" />
-    <Compile Include="Logic\util\ResultJSON.cs" />
-    <Compile Include="Logic\util\ResultObject.cs" />
     <Compile Include="Logic\util\Result.cs" />
     <Compile Include="Models\area.cs">
       <DependentUpon>Nautilus_Model.tt</DependentUpon>
