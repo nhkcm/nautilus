@@ -37,7 +37,21 @@ namespace NautilusREST.Controllers
 
             return Ok(estudiante);
         }
-        
+
+        [Route("api/estudiantes/{documento}")]
+        [HttpGet]
+        public HttpResponseMessage Getestudiante(string documento)
+        {
+            estudiante estudiante = db.estudiante.Where(x => x.documento == documento).FirstOrDefault();
+            if (estudiante == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, estudiante);
+        }
+
+
         [HttpGet]
         [Route("api/estudiantes")]
         public HttpResponseMessage Getestudiante(string documento, string nombre)
@@ -81,19 +95,71 @@ namespace NautilusREST.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/estudiantes
-        [ResponseType(typeof(estudiante))]
-        public async Task<IHttpActionResult> Postestudiante(estudiante estudiante)
+        
+        public HttpResponseMessage Postestudiante(estudiante estudiante)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
             db.estudiante.Add(estudiante);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = estudiante.id }, estudiante);
+
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                estudiante.id,
+                estudiante.nombre,
+                estudiante.apellido,
+                estudiante.documento,
+                estudiante.sexo,
+                estudiante.telefono,
+                estudiante.fecha_nacimiento,
+                estudiante.direccion,
+                estudiante.email,
+                estudiante.estado
+            });
+        }
+
+        // POST: api/estudiantes
+        [Route("api/estudiantes/{documento}/matricular/{curso}")]
+        public HttpResponseMessage Postestudiante(string documento, int curso)
+        {
+            var estudiante = db.estudiante.Where(x => x.documento == documento).FirstOrDefault();
+            var horarios = db.horarios.Where(x => x.curso_id == curso).ToList();
+
+            if (estudiante == null) {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "estudante no encontrado!");
+            }
+
+            if (horarios == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "problemas para encotrar horarios validos");
+            }
+
+            if (horarios.Count() < 1)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "horarios no disponibles");
+            }
+
+            foreach (var item in horarios)
+            {
+                notas n = new notas()
+                {
+                    estudiante_id = estudiante.id,
+                    horarios_id = item.id,
+                    n1 = 0,
+                    n2 = 0,
+                    n3 = 0,
+                    n4 = 0                    
+                };
+                db.notas.Add(n);
+            }
+
+            db.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // DELETE: api/estudiantes/5

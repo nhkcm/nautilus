@@ -73,19 +73,32 @@ namespace NautilusREST.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/horarios
-        [ResponseType(typeof(horarios))]
-        public async Task<IHttpActionResult> Posthorarios(horarios horarios)
+        // POST: api/horarios        
+        public dynamic Posthorarios(horarios horarios)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return null;
             }
 
             db.horarios.Add(horarios);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = horarios.id }, horarios);
+
+            var horario = (from _horario in db.horarios
+                           join _profesor in db.profesor on _horario.profesor_id equals _profesor.id
+                           join _asignatura in db.asignatura on _horario.asignatura_id equals _asignatura.id
+                           where _horario.id == horarios.id
+                           select new
+                           {
+                               id = _horario.id,
+                               profesor_id = _profesor.id,
+                               profesor_nombre = _profesor.nombre + " " + _profesor.apellido,
+                               asignatura_id = _asignatura.id,
+                               asignatura_nombre = _asignatura.nombre
+                           }).ToList().FirstOrDefault();
+
+            return horario;
         }
 
         // DELETE: api/horarios/5

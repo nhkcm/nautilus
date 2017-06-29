@@ -22,35 +22,44 @@ namespace NautilusREST.Controllers
         // GET: api/cursos
         public IQueryable<dynamic> Getcurso()
         {
-            return db.curso.Select(x => new {
-                x.id,
-                x.nombre,
-                grado_nombre = x.grado.nombre,
-                x.periodo,
-                estado = (x.estado == 0) ? "Inactivo" : "Activo"
-            });
+            var result = from _curso in db.curso
+                         join _grado in db.grado on _curso.grado_id equals _grado.id
+                         select new
+                         {
+                             _curso.id,
+                             _curso.nombre,
+                             grado_nombre = _grado.nombre,
+                             _curso.periodo,
+                             estado = (_curso.estado == 0) ? "Inactivo" : "Activo"
+                         };
+
+
+            return result;
+        }
+
+        [Route("api/cursos/disponibles")]
+        [HttpGet]
+        public IQueryable<dynamic> GetcursosDisponibles()
+        {
+            var result = from _curso in db.curso
+                         join _grado in db.grado on _curso.grado_id equals _grado.id
+                         where _curso.periodo >= DateTime.Now.Year
+                         select new
+                         {
+                             _curso.id,
+                             _curso.nombre,
+                             grado_nombre = _grado.nombre,
+                             _curso.periodo,
+                             estado = (_curso.estado == 0) ? "Inactivo" : "Activo"
+                         };
+
+
+            return result;
         }
 
         [Route("api/cursos/horarios/{id}")]
         public IEnumerable<dynamic> gethorarios(int id)
-        {
-            //var curso = db.curso.Find(id);
-
-            //if (curso == null) return null;
-
-            //var horarios = curso.horarios.Select(x => new {
-            //    x.id,
-
-            //    asignatura_id = x.asignatura_id,
-            //    asignatura_nombre = x.asignatura.nombre,
-
-            //    curso_id = x.curso_id,
-            //    curso_nombre = x.curso.nombre,
-
-            //    profesor_id = x.profesor_id,
-            //    profesor_nombre = x.profesor.nombre,
-            //});
-
+        { 
             //mejorar perfomance
             var horarios = (from _horario in db.horarios
                             join _profesor in db.profesor on _horario.profesor_id equals _profesor.id
@@ -59,10 +68,10 @@ namespace NautilusREST.Controllers
                             select new {
                                 id = _horario.id,
                                 profesor_id = _profesor.id,
-                                profesor_nombre = $"{_profesor.nombre} {_profesor.apellido}",
+                                profesor_nombre = _profesor.nombre + " " + _profesor.apellido,
                                 asignatura_id = _asignatura.id,
                                 asignatura_nombre = _asignatura.nombre
-                            });
+                            }).ToList();
 
 
             return horarios;

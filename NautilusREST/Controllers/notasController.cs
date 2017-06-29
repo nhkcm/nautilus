@@ -23,7 +23,7 @@ namespace NautilusREST.Controllers
         public IQueryable<notas> Getnotas()
         {
             return db.notas;
-        }
+        }        
 
         // GET: api/notas/5
         [ResponseType(typeof(notas))]
