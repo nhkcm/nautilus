@@ -95,7 +95,8 @@ namespace NautilusREST.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        
+        [Route("api/estudiantes")]
+        [HttpPost]
         public HttpResponseMessage Postestudiante(estudiante estudiante)
         {
             if (!ModelState.IsValid)
