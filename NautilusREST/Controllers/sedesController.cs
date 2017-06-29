@@ -20,10 +20,17 @@ namespace NautilusREST.Controllers
         private nautilus_entities db = new nautilus_entities();
 
         // GET: api/sedes
-        public IQueryable<sede> Getsede()
+        public IEnumerable<dynamic> Getsede()
         {
-            return db.sede;
+            return db.sede.Select(x => new {
+                x.id,
+                institucion_nombre = x.institucion.nombre,
+                x.telefono,
+                x.direccion,
+                aula_count = x.aula.Count()
+            });
         }
+
 
         // GET: api/sedes/5
         [ResponseType(typeof(sede))]

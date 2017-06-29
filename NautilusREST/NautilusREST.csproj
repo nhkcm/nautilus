@@ -186,9 +186,6 @@
     <Compile Include="Models\detalle_horario.cs">
       <DependentUpon>Nautilus_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DTO\Area.cs" />
-    <Compile Include="Models\DTO\Asignatura.cs" />
-    <Compile Include="Models\DTO\Profesor.cs" />
     <Compile Include="Models\estudiante.cs">
       <DependentUpon>Nautilus_Model.tt</DependentUpon>
     </Compile>

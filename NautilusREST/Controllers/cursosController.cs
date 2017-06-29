@@ -20,13 +20,57 @@ namespace NautilusREST.Controllers
         private nautilus_entities db = new nautilus_entities();
 
         // GET: api/cursos
-        public IQueryable<curso> Getcurso()
+        public IQueryable<dynamic> Getcurso()
         {
-            return db.curso;
+            return db.curso.Select(x => new {
+                x.id,
+                x.nombre,
+                grado_nombre = x.grado.nombre,
+                x.periodo,
+                estado = (x.estado == 0) ? "Inactivo" : "Activo"
+            });
         }
 
-        // GET: api/cursos/5
-        [ResponseType(typeof(curso))]
+        [Route("api/cursos/horarios/{id}")]
+        public IEnumerable<dynamic> gethorarios(int id)
+        {
+            //var curso = db.curso.Find(id);
+
+            //if (curso == null) return null;
+
+            //var horarios = curso.horarios.Select(x => new {
+            //    x.id,
+
+            //    asignatura_id = x.asignatura_id,
+            //    asignatura_nombre = x.asignatura.nombre,
+
+            //    curso_id = x.curso_id,
+            //    curso_nombre = x.curso.nombre,
+
+            //    profesor_id = x.profesor_id,
+            //    profesor_nombre = x.profesor.nombre,
+            //});
+
+            //mejorar perfomance
+            var horarios = (from _horario in db.horarios
+                            join _profesor in db.profesor on _horario.profesor_id equals _profesor.id
+                            join _asignatura in db.asignatura on _horario.asignatura_id equals _asignatura.id
+                            where _horario.curso_id == id
+                            select new {
+                                id = _horario.id,
+                                profesor_id = _profesor.id,
+                                profesor_nombre = $"{_profesor.nombre} {_profesor.apellido}",
+                                asignatura_id = _asignatura.id,
+                                asignatura_nombre = _asignatura.nombre
+                            });
+
+
+            return horarios;
+        }
+
+
+
+        // GET: api/cursos/5       
         public async Task<IHttpActionResult> Getcurso(int id)
         {
             curso curso = await db.curso.FindAsync(id);
@@ -35,7 +79,13 @@ namespace NautilusREST.Controllers
                 return NotFound();
             }
 
-            return Ok(curso);
+            return Ok(new {
+                curso.id,
+                curso.nombre,
+                grado_nombre = curso.grado.nombre,
+                curso.periodo,
+                estado = (curso.estado == 0) ? "Inactivo" : "Activo"                
+            });
         }
 
         // PUT: api/cursos/5

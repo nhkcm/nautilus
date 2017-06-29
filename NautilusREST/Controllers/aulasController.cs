@@ -19,11 +19,90 @@ namespace NautilusREST.Controllers
     {
         private nautilus_entities db = new nautilus_entities();
 
-        // GET: api/aulas
-        public IQueryable<aula> Getaula()
+        #region utilidades
+
+        private string getTipo(int tipo)
         {
-            return db.aula;
+            switch (tipo)
+            {
+                case 1: return "normal";
+                case 2: return "audiovisual";
+                case 3: return "deportiva";
+                default: return "no definido";
+            }
         }
+
+        private string getEstado(int estado)
+        {
+            switch (estado) {
+                case 0: return "Inactiva";
+                case 1:return "Activa";
+                case 2: return "Mantenimiento";
+                default: return "no definido";
+            }
+        }
+
+        #endregion        
+
+        [Route("api/aulas/filter/{sede_id}")]
+        public IEnumerable<dynamic> Getaulafilter(int sede_id)
+        {
+           
+
+            var query = (from _aula in db.aula
+                         join _sede in db.sede on _aula.sede_id equals _sede.id
+                         where _aula.sede_id == sede_id
+                         select new
+                         {
+                             _aula.id,
+                             _aula.nombre,
+                             nombre_sede = _sede.nombre,
+                             _aula.capacidad,
+                             _aula.tipo,
+                             _aula.estado
+                         }).ToList();
+
+            var parse = query.Select(x => new
+            {
+                x.id,
+                x.nombre,
+                x.nombre_sede,
+                x.capacidad,
+                tipo = getTipo(x.tipo),
+                estado = getEstado(x.estado)
+            });
+
+            return parse;
+        }
+
+        // GET: api/aulas
+        public IEnumerable<dynamic> Getaula()
+        {            
+
+            var query = (from _aula in db.aula
+                         join _sede in db.sede on _aula.sede_id equals _sede.id
+                         select new
+                         {
+                             _aula.id,
+                             _aula.nombre,
+                             nombre_sede = _sede.nombre,
+                             _aula.capacidad,
+                             _aula.tipo,
+                             _aula.estado
+                         }).ToList();
+
+            var parse = query.Select(x => new 
+            {
+                x.id,
+                x.nombre,
+                x.nombre_sede,
+                x.capacidad,
+                tipo = getTipo(x.tipo),
+                estado = getEstado(x.estado)
+            });
+
+            return parse;
+        }        
 
         // GET: api/aulas/5
         [ResponseType(typeof(aula))]

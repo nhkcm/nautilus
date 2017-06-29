@@ -11,7 +11,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using NautilusREST.Models;
 using System.Web.Http.Cors;
-using NautilusREST.Models.DTO;
 using System.Dynamic;
 
 namespace NautilusREST.Controllers
@@ -37,8 +36,7 @@ namespace NautilusREST.Controllers
             });        
         }
 
-        // GET: api/profesores/5
-        [ResponseType(typeof(profesor))]
+        // GET: api/profesores/5        
         public async Task<IHttpActionResult> Getprofesor(int id)
         {
             profesor profesor = await db.profesor.FindAsync(id);
@@ -47,13 +45,42 @@ namespace NautilusREST.Controllers
                 return NotFound();
             }
 
-            return Ok(profesor);
+            return Ok(new
+            {
+                profesor.id,
+                profesor.nombre,
+                profesor.sexo,
+                profesor.telefono,
+                profesor.apellido,
+                profesor.direccion,
+                profesor.documento,
+                profesor.email,
+                profesor.estado                
+            });
+        }
+
+        [Route("api/profesores/{id}/horarios")]
+        public async Task<IHttpActionResult> GetprofesorHorarios(int id)
+        {
+            profesor profesor = await db.profesor.FindAsync(id);
+            if (profesor == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return Ok(profesor.horarios.Select(x => new {
+                x.id,
+                asignatura_nombre = x.asignatura.nombre,
+                curso_nombre = x.curso.nombre
+            }));
         }
 
         // PUT: api/profesores/5
-        [ResponseType(typeof(void))]
+        [Route("api/profesores/{id}")]        
         public async Task<IHttpActionResult> Putprofesor(int id, profesor profesor)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
